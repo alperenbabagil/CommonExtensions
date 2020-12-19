@@ -89,13 +89,13 @@ inline fun <reified T>Context.getFromSharedPreferences(key:String,
                                                        sp: SharedPreferences?=null
 ) : T {
     val spe=sp ?: PreferenceManager.getDefaultSharedPreferences(this)
-    return when(defaultValue!!::class){
-        String::class -> spe.getString(key, defaultValue as String) as T
-        Set::class -> spe.getStringSet(key,defaultValue as Set<String>) as T
-        Int::class -> spe.getInt(key,defaultValue as Int) as T
-        Long::class -> spe.getLong(key,defaultValue as Long) as T
-        Float::class -> spe.getFloat(key,defaultValue as Float) as T
-        Boolean::class -> spe.getBoolean(key,defaultValue as Boolean) as T
+    return when(defaultValue){
+        is String -> spe.getString(key, defaultValue as String) as T
+        is Set<*> -> spe.getStringSet(key,defaultValue as Set<String>) as T
+        is Int -> spe.getInt(key,defaultValue as Int) as T
+        is Long -> spe.getLong(key,defaultValue as Long) as T
+        is Float -> spe.getFloat(key,defaultValue as Float) as T
+        is Boolean -> spe.getBoolean(key,defaultValue as Boolean) as T
         else -> defaultValue
     }
 }
